@@ -19,7 +19,7 @@ time.sleep(5)
 username  = driver.find_element(By.ID, "username")
 
 # Enter Your Email Address
-username.send_keys("hajrikhalil07@gmail.com") 
+username.send_keys("khalil.hajri@aiesec.net") 
  
 # entering password
 pword = driver.find_element(By.ID, "password")
@@ -32,7 +32,7 @@ pword.send_keys("KHenpersonne25")
 driver.find_element(By.XPATH, "//button[@type='submit']").click()
 
 #Intializing linkedin profiles
-profile_url = "https://www.linkedin.com/in/hajri-khalil-974613163/"
+profile_url = "https://www.linkedin.com/in/kunalshah1/"
 
 driver.get(profile_url)
 
@@ -40,6 +40,14 @@ driver.get(profile_url)
 start = time.time()
 initialScroll = 0
 finalScroll = 1000
+while True:
+    driver.execute_script(f"window.scrollTo({initialScroll},{finalScroll})")
+    initialScroll = finalScroll
+    finalScroll += 1000
+    time.sleep(3)
+    end = time.time()
+    if round(end - start) > 20:
+        break
  
 
 
@@ -53,12 +61,13 @@ name_loc = intro.find("h1")
 name = name_loc.get_text().strip() #Strip to remove extra spaces
 works_at_loc = intro.find("div", {'class': 'text-body-medium'})
 works_at = works_at_loc.get_text().strip()
+
+location_loc = intro.find_all("span", {'class': 'text-body-small'})
+location = location_loc[1].get_text().strip()
 print("Name -->", name,
-      "\nWorks At -->", works_at)
+      "\nWorks At -->", works_at,
+      "\nWorks At -->", location)
 
 #Getting experience
-experience = soup.find("section", {"id": "experience-section"}).find('ul')
-li_tags = experience.find('div')
-a_tags = li_tags.find("a")
-job_title = a_tags.find("h3").get_text().strip()
-print(job_title)
+experience = soup.find("section", {"id": "ember51"})
+print(experience)
